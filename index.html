@@ -5,81 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The DIY Corner | Official</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-        body { background-color: #000; color: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #000; color: #fff; overflow: hidden; } /* Scroll roka hai swipe ke liye */
 
-        /* BANNER - Jaisa SS mein tha */
-        .banner { 
-            width: 100%; 
-            height: 280px; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1200x400?text=THE+DIY+CORNER+BANNER'); 
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        /* 1. TOP BANNER & LOGO */
+        .header-container {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/xSvRPTYk/banner.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .logo { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #00ffcc; margin-bottom: 10px; background: #111; }
+        .logo-small {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #00ffcc;
+        }
+        .header-container h1 { font-size: 1.8rem; letter-spacing: 4px; text-shadow: 2px 2px 10px #000; }
 
-        /* NAV BELOW BANNER */
-        nav { background: #0a0a0a; padding: 15px; border-bottom: 1px solid #1a1a1a; display: flex; justify-content: center; gap: 25px; position: sticky; top: 0; z-index: 1000; }
-        nav a { text-decoration: none; color: #888; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        /* 2. NAVIGATION BAR (Below Banner) */
+        nav { 
+            background: #050505; 
+            padding: 15px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px;
+            border-bottom: 1px solid #111;
+        }
+        nav a { text-decoration: none; color: #888; font-size: 11px; font-weight: bold; text-transform: uppercase; }
         nav a:hover { color: #00ffcc; }
 
-        section { display: none; padding: 40px 20px; flex-direction: column; align-items: center; min-height: 80vh; }
-        section:target { display: flex; }
-        #home { display: flex; }
+        /* 3. SIDE SCROLL PAGES SYSTEM */
+        .main-wrapper {
+            display: flex;
+            width: 300vw; /* 3 Pages = 300% width */
+            height: calc(100vh - 250px); /* Banner aur Nav hata kar */
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Snap effect swipe par */
+            scrollbar-width: none;
+        }
+        .main-wrapper::-webkit-scrollbar { display: none; }
 
-        /* STORE GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; margin-top: 20px; }
-        .card { background: #080808; border: 1px solid #111; border-radius: 8px; overflow: hidden; }
-        .card img { width: 100%; height: 300px; object-fit: cover; background: #151515; }
-        .card-body { padding: 20px; }
-        .price { color: #00ffcc; font-size: 20px; font-weight: bold; display: block; margin: 10px 0; }
-        .buy-btn { display: block; background: #00ffcc; color: #000; text-align: center; padding: 12px; text-decoration: none; font-weight: bold; border-radius: 4px; }
+        .page {
+            width: 100vw;
+            height: 100%;
+            scroll-snap-align: start;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
-        footer { padding: 40px; color: #222; font-size: 10px; text-align: center; }
+        /* CONTENT STYLES */
+        .section-title { color: #00ffcc; margin-bottom: 20px; font-size: 20px; border-left: 3px solid #00ffcc; padding-left: 10px; }
+        .video-box { width: 100%; max-width: 500px; aspect-ratio: 16/9; background: #111; border: 1px solid #222; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
+        
+        .product-card { background: #080808; border: 1px solid #111; margin-bottom: 20px; border-radius: 8px; overflow: hidden; }
+        .product-card img { width: 100%; height: 250px; object-fit: cover; }
+        .p-info { padding: 15px; }
+        .buy-btn { display: block; background: #00ffcc; color: #000; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 10px; }
+
     </style>
 </head>
 <body>
 
-    <div class="banner">
-        <img src="https://via.placeholder.com/150?text=LOGO" alt="Logo" class="logo">
+    <div class="header-container">
+        <img src="https://i.ibb.co/chKKJ89z/logo.jpg" alt="Logo" class="logo-small">
         <h1>THE DIY CORNER</h1>
-        <p style="color: #00ffcc; letter-spacing: 2px;">INNOVATION & 3D PRECISION</p>
     </div>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#store">Store</a>
-        <a href="#social">Social</a>
+        <a href="#page1">Home</a>
+        <a href="#page2">Store</a>
+        <a href="#page3">Social</a>
     </nav>
 
-    <section id="home">
-        <h2 style="color: #00ffcc; margin-bottom: 20px;">LATEST PROJECTS</h2>
-        <div style="width:100%; max-width:600px; aspect-ratio:16/9; background:#111; border:1px solid #222; display:flex; align-items:center; justify-content:center;">
-            <p style="color:#444;">[ YOUTUBE VIDEO LOADS HERE ]</p>
+    <div class="main-wrapper">
+        
+        <div class="page" id="page1">
+            <h2 class="section-title">Home</h2>
+            <div class="video-box">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/D2HQ5Vp180a" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p style="text-align: center; color: #666;">Swipe left to see Store -></p>
         </div>
-    </section>
 
-    <section id="store">
-        <h2 style="margin-bottom: 30px;">● Store & products :-</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="" alt="Product">
-                <div class="card-body">
-                    <h3>Naya Product Name</h3>
-                    <span class="price">Rs. 000/-</span>
+        <div class="page" id="page2">
+            <h2 class="section-title">Store & Products</h2>
+            
+            <div class="product-card">
+                <img src="https://via.placeholder.com/400x300?text=Your+Model+Photo" alt="Product">
+                <div class="p-info">
+                    <h3>Product Name Here</h3>
+                    <p style="color: #00ffcc; font-weight: bold; margin-top: 5px;">Rs. 000/-</p>
                     <a href="https://t.me/Thediycornerrofficial" class="buy-btn">BUY NOW</a>
                 </div>
             </div>
-            </div>
-    </section>
 
-    <section id="social">
-        <h2 style="margin-bottom: 30px;">Connect</h2>
-        <a href="Https://youtube.com/@thediycorner00?si=D2HQ5Vp180aZeF0x" style="display:block; width:100%; max-width:400px; padding:20px; border:1px solid #222; color:#fff; text-decoration:none; margin-bottom:10px; text-align:center;">YouTube</a>
-        <a href="https://t.me/Thediycornerrofficial" style="display:block; width:100%; max-width:400px; padding:20px; border:1px solid #222; color:#fff; text-decoration:none; text-align:center;">Telegram</a>
-    </section>
+        </div>
 
-    <footer>&copy; 2026 THE DIY CORNER</footer>
+        <div class="page" id="page3">
+            <h2 class="section-title">Social Links</h2>
+            <a href="https://youtube.com/@thediycorner00" style="display:block; padding:15px; border:1px solid #222; color:#fff; text-decoration:none; margin-bottom:10px;">YouTube Channel</a>
+            <a href="https://t.me/Thediycornerrofficial" style="display:block; padding:15px; border:1px solid #222; color:#fff; text-decoration:none;">Telegram Chat</a>
+        </div>
+
+    </div>
 
 </body>
 </html>
