@@ -3,126 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The DIY Corner | Dark Edition</title>
+    <title>The DIY Corner | Official</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #000000; color: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #000; color: #fff; overflow-x: hidden; }
 
-        /* DARK BANNER */
-        .banner { 
-            width: 100%; 
-            height: 200px; 
-            background: #0a0a0a; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            border-bottom: 1px solid #1a1a1a;
-            text-align: center;
-        }
-        .banner h1 { font-size: 2.2rem; letter-spacing: 4px; text-transform: uppercase; color: #eee; }
-        .banner p { color: #00ffcc; font-size: 13px; margin-top: 5px; font-family: monospace; letter-spacing: 2px; }
-
-        /* NAVIGATION BAR */
-        nav { 
-            background: #050505; 
-            padding: 15px; 
-            border-bottom: 1px solid #111; 
-            display: flex; 
-            justify-content: center; 
-            gap: 25px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav a { text-decoration: none; color: #888; font-weight: 600; font-size: 12px; text-transform: uppercase; transition: 0.3s; }
+        /* NAVIGATION */
+        nav { background: #050505; padding: 15px; border-bottom: 1px solid #111; display: flex; justify-content: center; gap: 20px; position: sticky; top: 0; z-index: 1000; }
+        nav a { text-decoration: none; color: #888; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         nav a:hover { color: #00ffcc; }
 
+        /* SECTIONS */
+        section { min-height: 100vh; padding: 60px 20px; display: none; flex-direction: column; align-items: center; text-align: center; }
+        section:target { display: flex; } /* Ye magic hai: Jo link click hoga wahi section dikhega */
+        #home { display: flex; } /* By default Home dikhega */
+
+        /* HOME SECTION */
+        .banner-text h1 { font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 10px; }
+        .promo-video { width: 100%; max-width: 500px; height: 280px; background: #111; border: 1px solid #222; margin: 30px 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #444; }
+        .explore-btn { padding: 12px 30px; border: 1px solid #00ffcc; color: #00ffcc; text-decoration: none; font-weight: bold; border-radius: 4px; }
+
         /* STORE SECTION */
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .title { font-size: 20px; font-weight: bold; margin-bottom: 30px; color: #00ffcc; border-left: 3px solid #00ffcc; padding-left: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; }
+        .card { background: #080808; border: 1px solid #111; border-radius: 8px; overflow: hidden; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: #00ffcc; }
+        .card img { width: 100%; height: 300px; object-fit: cover; background: #151515; }
+        .card-info { padding: 20px; }
+        .card-info h3 { font-size: 16px; margin-bottom: 5px; color: #eee; }
+        .card-info p { font-size: 12px; color: #666; margin-bottom: 10px; }
+        .price { font-size: 18px; font-weight: bold; color: #00ffcc; display: block; margin-bottom: 15px; }
+        .buy-btn { display: block; background: #00ffcc; color: #000; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; border-radius: 4px; }
 
-        .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-        }
+        /* SOCIAL SECTION */
+        .social-link { width: 100%; max-width: 400px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; text-decoration: none; color: #fff; border-radius: 8px; transition: 0.3s; }
+        .social-link:hover { background: #111; border-color: #00ffcc; }
 
-        /* DARK PRODUCT CARD */
-        .card { border: 1px solid #111; background: #080808; padding: 10px; border-radius: 4px; transition: 0.3s; }
-        .card:hover { border-color: #00ffcc; transform: translateY(-5px); }
-        .card img { 
-            width: 100%; 
-            height: 350px; 
-            object-fit: cover; 
-            background: #111; 
-            border-radius: 2px;
-        }
-        .card-info { padding: 15px 5px; }
-        .product-name { font-size: 15px; color: #ccc; margin-bottom: 8px; }
-        .price { font-size: 18px; font-weight: bold; color: #fff; display: block; margin-bottom: 15px; }
-        
-        .buy-btn { 
-            display: block; 
-            padding: 12px; 
-            background: transparent; 
-            color: #00ffcc; 
-            border: 1px solid #00ffcc;
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 12px;
-            border-radius: 2px;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .buy-btn:hover { background: #00ffcc; color: #000; }
-
-        footer { text-align: center; padding: 60px; color: #333; font-size: 10px; letter-spacing: 1px; }
+        footer { padding: 40px; color: #222; font-size: 10px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="banner">
-        <h1>THE DIY CORNER</h1>
-        <p>DIGITAL ARCHIVE // 2026</p>
-    </div>
-
     <nav>
-        <a href="#">Home</a>
+        <a href="#home">Home</a>
         <a href="#store">Store</a>
-        <a href="#">About</a>
-        <a href="#">Social</a>
+        <a href="#social">Social Media</a>
     </nav>
 
-    <div class="container" id="store">
-        <div class="title">● Store & products :-</div>
-        
-        <div class="product-grid">
+    <section id="home">
+        <div class="banner-text">
+            <h1>THE DIY CORNER</h1>
+            <p style="color:#00ffcc">INNOVATION & 3D PRECISION</p>
+        </div>
+        <div class="promo-video">
+            [ YOUTUBE AD / PROMO VIDEO ]
+        </div>
+        <a href="#store" class="explore-btn">EXPLORE PRODUCTS</a>
+    </section>
+
+    <section id="store">
+        <h2 style="margin-bottom: 40px; letter-spacing: 3px;">● OFFICIAL STORE</h2>
+        <div class="grid">
             
             <div class="card">
-                <img src="" alt="Product Image">
+                <img src="PHOTO_URL_HERE" alt="Product">
                 <div class="card-info">
-                    <div class="product-name">Product Title Here</div>
+                    <h3>PRODUCT NAME HERE</h3>
+                    <p>Details: High Precision, PVC Build, Custom Painted.</p>
                     <span class="price">Rs. 000/-</span>
-                    <a href="#" class="buy-btn">BUY NOW</a>
+                    <a href="https://t.me/TheDiyCornerOfficial" class="buy-btn">BUY VIA TELEGRAM</a>
                 </div>
             </div>
 
             <div class="card">
-                <img src="" alt="Product Image">
+                <img src="PHOTO_URL_HERE" alt="Product">
                 <div class="card-info">
-                    <div class="product-name">Product Title Here</div>
+                    <h3>PRODUCT NAME HERE</h3>
+                    <p>Details: Custom Scale Model, Realistic Finish.</p>
                     <span class="price">Rs. 000/-</span>
-                    <a href="#" class="buy-btn">BUY NOW</a>
+                    <a href="https://t.me/TheDiyCornerOfficial" class="buy-btn">BUY VIA TELEGRAM</a>
                 </div>
             </div>
 
         </div>
-    </div>
+    </section>
 
-    <footer>
-        &copy; 2026 THE DIY CORNER // SYSTEM ONLINE
-    </footer>
+    <section id="social">
+        <h2 style="margin-bottom: 40px;">CONNECT WITH US</h2>
+        <a href="https://youtube.com/@TheDIYCorner" class="social-link">YOUTUBE CHANNEL</a>
+        <a href="https://t.me/TheDiyCornerOfficial" class="social-link">TELEGRAM (DIRECT CHAT)</a>
+        <a href="#" class="social-link">INSTAGRAM PORTFOLIO</a>
+    </section>
+
+    <footer>&copy; 2026 THE DIY CORNER</footer>
 
 </body>
 </html>
+
